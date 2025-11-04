@@ -1,0 +1,36 @@
+# 工作流名称
+name: Ex7 - Tests Unitaires Automatisés
+
+# 当有人 push 到 ex7 分支时自动触发
+on:
+  push:
+    branches:
+      - ex7
+
+jobs:
+  # Q1：唯一的任务 job，用于执行自动化单元测试
+  test:
+    runs-on: ubuntu-latest  # 在 GitHub 提供的 Ubuntu 虚拟机上运行
+
+    steps:
+      # 拉取当前仓库代码
+      - name: Récupérer le code source
+        uses: actions/checkout@v3
+
+      # Q1.安装 Node.js 环境（Node 18版本）
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Q2.安装项目依赖
+      - name: Installer les dépendances
+        run: npm install
+
+      # Q2.执行单元测试命令（npm test）
+      - name: Lancer les tests unitaires
+        run: npm test
+
+      # Q3.显示测试完成提示
+      - name: Afficher le message de fin
+        run: echo "✅ Tous les tests unitaires sont terminés avec succès."
