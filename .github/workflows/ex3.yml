@@ -18,10 +18,6 @@ jobs:  # Les tâches à exécuter (要执行的任务集合)
 
     # Q2
     steps:
-      # 第一步：把仓库代码拉下来, 是拉这个package.json吗 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 第二步：显示环境变量
+      # 显示环境变量
       - name: Afficher la variable MESSAGE
         run: echo "$MESSAGE"
