@@ -1,55 +1,21 @@
-name: Ex6 - Jobs Dépendants
+# 工作流名称
+name: Ex8 - Workflow Programmable (Cron Job)
 
-# 当有人 push 代码到 ex6 分支时触发
+# on: 定义触发条件
 on:
-  push:
-    branches:
-      - ex6
+  schedule:
+    # 每天早上 8 点执行一次（UTC 时间）
+    # 注意：GitHub 使用的是 UTC 时间，如果你在法国，
+    # 法国冬令时 = UTC+1，夏令时 = UTC+2，
+    # 所以实际执行时间会是法国时间 9h 或 10h。
+    - cron: '0 8 * * *'
 
 jobs:
-  # Q1：第一个任务，用来构建项目
-  build:
-    runs-on: ubuntu-latest  # 运行环境为 Ubuntu
+  # Q1：唯一的任务 job，用于显示计划任务信息
+  log-message:
+    runs-on: ubuntu-latest  # 使用 GitHub 提供的 Ubuntu 运行环境
 
     steps:
-      # 拉取代码
-      - name: Checkout du code
-        uses: actions/checkout@v3
-
-      # 安装 Node.js 环境
-      - name: Installer Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # 安装依赖
-      - name: Installer les dépendances
-        run: npm install
-
-      # 编译项目
-      - name: Compiler le projet
-        run: npm run build
-
-  # Q2：第二个任务，依赖上面的 build 任务
-  test:
-    needs: build  # 表示 test 要等 build 成功后才会执行
-    runs-on: ubuntu-latest
-
-    steps:
-      # 拉取代码
-      - name: Checkout du code
-        uses: actions/checkout@v3
-
-      # 安装 Node.js 环境
-      - name: Installer Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # 安装依赖
-      - name: Installer les dépendances
-        run: npm install
-
-      # 运行测试
-      - name: Lancer les tests
-        run: npm test
+      # 显示一条日志消息
+      - name: Afficher un message dans les logs  # 显示日志信息
+        run: echo "🕗 Le workflow s'exécute automatiquement chaque jour à 8h (heure UTC)."
