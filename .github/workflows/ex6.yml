@@ -1,0 +1,55 @@
+name: Ex6 - Jobs Dépendants
+
+# 当有人 push 代码到 ex6 分支时触发
+on:
+  push:
+    branches:
+      - ex6
+
+jobs:
+  # Q1：第一个任务，用来构建项目
+  build:
+    runs-on: ubuntu-latest  # 运行环境为 Ubuntu
+
+    steps:
+      # 拉取代码
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      # 安装 Node.js 环境
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 安装依赖
+      - name: Installer les dépendances
+        run: npm install
+
+      # 编译项目
+      - name: Compiler le projet
+        run: npm run build
+
+  # Q2：第二个任务，依赖上面的 build 任务
+  test:
+    needs: build  # 表示 test 要等 build 成功后才会执行
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      # 安装 Node.js 环境
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 安装依赖
+      - name: Installer les dépendances
+        run: npm install
+
+      # 运行测试
+      - name: Lancer les tests
+        run: npm test
