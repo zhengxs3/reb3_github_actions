@@ -1,15 +1,12 @@
 # Nom du workflow (工作流的名称)
 name: Ex3 - Variables d'environnement
 
-# Quand on pousse du code ou on fait une pull request sur la branche "main"
-# （当有人 push 代码或发起 pull request 到 main 分支时触发）
+# Quand on pousse du code ou on fait une pull request sur la branche "ex3"
+# （当有人 push 代码或发起 pull request 到 ex3 分支时触发）
 on:
   push:
     branches:
-      - main   # 这次改成 main 分支
-  pull_request:
-    branches:
-      - main
+      - ex3   # 这次改成 ex3 分支
 
 jobs:  # Les tâches à exécuter (要执行的任务集合)
   afficher-message:
