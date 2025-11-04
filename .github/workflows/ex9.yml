@@ -1,0 +1,43 @@
+# 工作流的名称（显示在 GitHub Actions 页面上）
+name: Ex9 - Déploiement sur GitHub Pages
+
+# on: 定义触发条件
+on:
+  push:
+    branches:
+      - main  # 当有人 push 到 main 分支时触发（即主分支）
+
+# 权限设置，允许此工作流访问和部署到 GitHub Pages
+permissions:
+  contents: read     # 可以读取仓库内容
+  pages: write       # 可以写入 GitHub Pages（即部署权限）
+  id-token: write    # 用于身份验证（GitHub 要求）
+
+# concurrency 表示同一时间只能执行一个部署任务
+concurrency:
+  group: "pages"           # 部署任务组名叫 pages
+  cancel-in-progress: false  # 不会取消正在运行的部署
+
+# 定义工作任务集合
+jobs:
+  # Q1：唯一的任务 deploy，用于部署到 GitHub Pages
+  deploy:
+    runs-on: ubuntu-latest  # 使用 GitHub 提供的 Ubuntu 虚拟机执行任务
+
+    steps:
+      # 第一步：拉取仓库代码（让 GitHub Actions 获取最新代码）
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v3  # 官方的 checkout 插件
+
+      # 第二步：上传要发布的网站文件（准备 Pages 要发布的内容）
+      # path: 后面指定的是要上传的文件夹路径
+      # 如果你的 index.html 在根目录，就写 "."
+      # 如果你的 index.html 在 dist 文件夹里，就写 "dist"
+      - name: Préparer les fichiers du site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .  # 当前目录（即仓库根目录）
+
+      # 第三步：真正部署到 GitHub Pages（发布上线）
+      - name: Déployer sur GitHub Pages
+        uses: actions/deploy-pages@v4
