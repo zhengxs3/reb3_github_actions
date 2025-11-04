@@ -32,7 +32,7 @@ jobs:  # Les tâches à exécuter (要执行的任务集合)
       # Étape 3 : Afficher un message
       # （步骤3：打印 Hello World）
       - name: Afficher Hello World
-        run: echo "Hello World*"
+        run: echo "Hello World !"
 
       # Étape 4 : Installer les dépendances
       # 安装依赖，就会用到推上去的 package.json
