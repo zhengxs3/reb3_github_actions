@@ -1,0 +1,18 @@
+# Nom du workflow (工作流的名称)
+name: Ex4 - Secrets GitHub
+
+on:
+  push:
+    branches:
+      - ex4
+
+jobs:
+  afficher-secret:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Afficher le secret masqué
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Ma clé API est : $API_KEY"
