@@ -3,6 +3,9 @@ name: Ex8 - Workflow Programmable (Cron Job)
 
 # on: 定义触发条件
 on:
+  push:
+    branches:
+      - ex8
   schedule:
     # 每天早上 8 点执行一次（UTC 时间）
     # 注意：GitHub 使用的是 UTC 时间，如果你在法国，
