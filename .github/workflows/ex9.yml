@@ -5,7 +5,7 @@ name: Ex9 - Déploiement sur GitHub Pages
 on:
   push:
     branches:
-      - main  # 当有人 push 到 main 分支时触发（即主分支）
+      - ex9  # 当有人 push 到 ex9 分支时触发
 
 # 权限设置，允许此工作流访问和部署到 GitHub Pages
 permissions:
