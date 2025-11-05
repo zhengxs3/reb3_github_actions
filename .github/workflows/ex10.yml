@@ -3,7 +3,7 @@ name: Ex10 - Build et Déploiement Docker
 on:
   push:
     branches:
-      - main
+      - ex10
 
 # -----------------------------------------------------
 # 定义任务（Jobs）
